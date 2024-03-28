@@ -17,13 +17,6 @@ repositories {
 
 kotlin {
     jvmToolchain(21)
-
-    jvm()
-
-    macosArm64()
-    macosX64()
-    linuxX64()
-
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs { nodejs() }
     js(IR) { nodejs() }
@@ -39,20 +32,29 @@ kotlin {
 
 benchmark {
     targets {
-        register("jvm") {
-            this as JvmBenchmarkTarget
-            jmhVersion = "1.37"
-        }
-        register("macosArm64")
-        register("macosX64")
-        register("linuxX64")
         register("js")
         register("wasmJs")
     }
 
     configurations {
-        named("main") {
-            advanced("jvmForks", 3)
+        create("AllThree_BH") {
+            include("org.example.BenchmarkWithBlackhole.[abc]")
+        }
+        create("LastTwo_BH") {
+            include("org.example.BenchmarkWithBlackhole.[bc]")
+        }
+        create("LastOne_BH") {
+            include("org.example.BenchmarkWithBlackhole.c")
+        }
+
+        create("AllThree_WBH") {
+            include("org.example.BenchmarkWithoutBlackhole.[abc]")
+        }
+        create("LastTwo_WBH") {
+            include("org.example.BenchmarkWithoutBlackhole.[bc]")
+        }
+        create("LastOne_WBH") {
+            include("org.example.BenchmarkWithoutBlackhole.c")
         }
     }
 }
