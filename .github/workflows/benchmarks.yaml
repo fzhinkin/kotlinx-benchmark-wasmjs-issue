@@ -23,7 +23,7 @@ jobs:
       - name: Copy results
         run: |
           mkdir -p results/js
-          cp -r build/reports/benchmark/* results/js/
+          cp -r build/reports/benchmarks/* results/js/
 
       - name: Publish results
         uses: peter-evans/create-pull-request@v5
@@ -56,7 +56,7 @@ jobs:
       - name: Copy results
         run: |          
           mkdir -p results/wasmJs
-          cp -r build/reports/benchmark/* results/wasmJs/
+          cp -r build/reports/benchmarks/* results/wasmJs/
 
       - name: Publish results
         uses: peter-evans/create-pull-request@v5
